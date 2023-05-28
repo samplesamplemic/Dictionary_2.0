@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Vocabulary2</string>
+    <string name="todo">TODO</string>
+    <string name="logo_instagram">logo_instagram</string>
+    <string name="logo_twitter">logo_twitter</string>
+    <string name="search">Search…</string>
+    <string name="imgDescription">image from word searched</string>
+</resources>
