@@ -2,7 +2,7 @@
 
 Dictionary app, developed in Kotlin.
 
-<div style="display=flex">
+<div style="display:flex">
 <div><img alt="img" src="./app/src/main/res/drawable/style_readme.png" height="300" width="150"/> </div>
 <div>- [![Kotlin][Kotlin.]][Kotlin-url]
 - [![Retrofit][Retrofit.]][Retrofit-url]
