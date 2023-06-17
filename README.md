@@ -1,17 +1,13 @@
 ## Dictionary
 
-Dictionary app, developed in Kotlin.
+| Dictionary app, developed in Kotlin. | <div><img alt="img" src="./app/src/main/res/drawable/style_readme.png" height="300" width="150"/> </div> |
 
-<div style="display:flex">
-<div><img alt="img" src="./app/src/main/res/drawable/style_readme.png" height="300" width="150"/> </div>
-<div>- [![Kotlin][Kotlin.]][Kotlin-url]
+### Built With
+- [![Kotlin][Kotlin.]][Kotlin-url]
 - [![Retrofit][Retrofit.]][Retrofit-url]
 - [![Picasso][Picasso.]][Picasso-url]
 - [![Jsoup][Jsoup.]][Jsoup-url]
-- [![Figma][Figma.]][Figma-url]</div>
-</div>
-
-### Built With
+- [![Figma][Figma.]][Figma-url]
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
