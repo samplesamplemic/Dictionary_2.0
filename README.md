@@ -2,7 +2,7 @@
 
 Dictionary app, developed in Kotlin.
 
-![img](./app/src/main/res/drawable/style_readme.png)
+ <img alt="img" height="300" src="./app/src/main/res/drawable/style_readme.png" width="200"/> 
 
 ### Built With
 
