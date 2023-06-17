@@ -2,16 +2,16 @@
 
 Dictionary app, developed in Kotlin.
 
- <img alt="img" height="300" src="./app/src/main/res/drawable/style_readme.png" width="200"/> 
-
-### Built With
-
-- [![Kotlin][Kotlin.]][Kotlin-url]
+<div style="display=flex">
+<div><img alt="img" src="./app/src/main/res/drawable/style_readme.png" height="300" width="150"/> </div>
+<div>- [![Kotlin][Kotlin.]][Kotlin-url]
 - [![Retrofit][Retrofit.]][Retrofit-url]
 - [![Picasso][Picasso.]][Picasso-url]
 - [![Jsoup][Jsoup.]][Jsoup-url]
-- [![Figma][Figma.]][Figma-url]
+- [![Figma][Figma.]][Figma-url]</div>
+</div>
 
+### Built With
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
