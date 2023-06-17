@@ -2,19 +2,15 @@
 
 Dictionary app, developed in Kotlin.
 
+[img](./app/src/main/res/drawable/style_readme.png)
 
 ### Built With
 
-<div style="display:flex ; gap:3rem">
-<div>
 - [![Kotlin][Kotlin.]][Kotlin-url]
 - [![Retrofit][Retrofit.]][Retrofit-url]
 - [![Picasso][Picasso.]][Picasso-url]
 - [![Jsoup][Jsoup.]][Jsoup-url]
 - [![Figma][Figma.]][Figma-url]
-<div>
-<div>![img](./app/src/main/res/drawable/style_readme.png)<div>
-<div>   
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
