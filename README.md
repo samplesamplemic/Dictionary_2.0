@@ -2,7 +2,7 @@
 
  Dictionary app, developed in Kotlin. 
 
-<div></div>
+<div><img alt="img" src="./app/src/main/res/drawable/style_readme.png" height="300" width="150"/> </div>
 
 ### Built With
 - [![Kotlin][Kotlin.]][Kotlin-url]
@@ -10,8 +10,6 @@
 - [![Picasso][Picasso.]][Picasso-url]
 - [![Jsoup][Jsoup.]][Jsoup-url]
 - [![Figma][Figma.]][Figma-url]
-
-<img alt="img" src="./app/src/main/res/drawable/style_readme.png" height="300" width="150"/> 
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
