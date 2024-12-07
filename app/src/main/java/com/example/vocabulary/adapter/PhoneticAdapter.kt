@@ -5,7 +5,7 @@ import android.media.MediaPlayer
 import android.util.Log
 import android.widget.ImageButton
 import com.example.vocabulary.R
-import com.example.vocabulary.model.dto.Phonetics
+import com.example.vocabulary.model.dto.Phonetic
 import java.util.*
 import kotlin.concurrent.timerTask
 
@@ -13,7 +13,7 @@ class PhoneticAdapter {
 
     companion object {
 
-        fun phoneticAdapter(itemToFind: List<Phonetics>?): String {
+        fun phoneticAdapter(itemToFind: List<Phonetic>?): String {
             var itemFound: String = ""
             if (itemToFind != null) {
 
@@ -30,7 +30,7 @@ class PhoneticAdapter {
             return itemFound
         }
 
-        fun playPronounce(itemToFind: List<Phonetics>?, iconPlay: ImageButton) {
+        fun playPronounce(itemToFind: List<Phonetic>?, iconPlay: ImageButton) {
 
             val listAudio: MutableList<String?> = mutableListOf()
             var wordAudio: String? = ""

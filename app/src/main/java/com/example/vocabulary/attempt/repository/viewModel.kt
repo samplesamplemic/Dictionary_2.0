@@ -1,3 +1,7 @@
+import android.util.Log
+import com.example.vocabulary.adapter.ImgAdapter
+import com.example.vocabulary.model.dto.Meaning
+
 // val response: Response<Word> = service.getWord(wordToSearch)
 //        return if (response.isSuccessful()) {
 //            Log.i("Response body: ", Gson().toJson(response.body()).toString())
@@ -50,3 +54,44 @@
 //app:layout_constraintBottom_toBottomOf="parent"
 //app:layout_constraintEnd_toEndOf="parent"
 //app:layout_constraintStart_toStartOf="parent" />
+
+//if (el.getElementsByAttributeValueContaining("src", wordToScrap)
+//.first()?.attr("src") != null
+//)
+
+//imageScraper.kt
+//lifecycleScope.launch {
+//    viewModel.selectedItem.observe(viewLifecycleOwner) { word ->
+//        val wordSearched = word.data?.get(0)?.word
+//
+//        if (!wordSearched.isNullOrEmpty()) {
+//            ImgAdapter.getImageAndDisplay(wordSearched, binding)
+//        } else {
+//            ImgAdapter.getImageAndDisplay("", binding)
+//        }
+//    }
+//}
+//        ("Exit", object : DialogInterface.OnClickListener {
+//                override fun onClick(p0: DialogInterface?, p1: Int) {}
+//            })
+
+//fun definitionAdapter(meanings: List<Meaning>): String {
+//    val definitionsList: MutableList<String> = mutableListOf()
+//    var definitions: String = ""
+//    // val emoticon: String = "\uD83D\uDE05"
+//    //  definitionsList.add("Searched word doesn't exist, sorry. $emoticon")
+//    for (element in meanings) {
+//        val definitionParsed = element.definitions
+//        for (i in 0 until (definitionParsed.count())) {
+//            definitionsList.add(definitionParsed[i].definition)
+//            Log.i("Definition: ", definitionsList.toString())
+//        }
+//    }
+//    for (definition in definitionsList) {
+//        definitions = definitionsList.toString().drop(1).dropLast(1)
+//            .replace(Regex("""(\.,|;)"""), ". \n");
+//    }
+//
+//    return definitions
+//}
+//}

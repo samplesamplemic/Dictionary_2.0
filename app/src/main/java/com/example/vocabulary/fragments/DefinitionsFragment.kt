@@ -11,14 +11,14 @@ import androidx.lifecycle.lifecycleScope
 import com.example.vocabulary.R
 import com.example.vocabulary.adapter.DefinitionsAdapter
 import com.example.vocabulary.databinding.DefinitionsFragmentBinding
-import com.example.vocabulary.model.dto.Meanings
+import com.example.vocabulary.model.dto.Meaning
 import com.example.vocabulary.viewModel.ItemViewModel
 import kotlinx.coroutines.launch
 
 class DefinitionsFragment : Fragment() {
     private lateinit var binding: DefinitionsFragmentBinding
     private val viewModel: ItemViewModel by activityViewModels()
-    private lateinit var meanings: List<Meanings>
+    private lateinit var meanings: List<Meaning>
 
     override fun onCreateView(
         inflater: LayoutInflater,
