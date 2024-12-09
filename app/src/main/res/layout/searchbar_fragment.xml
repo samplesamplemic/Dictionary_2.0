@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -8,8 +10,7 @@
             type="String" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity">
@@ -30,7 +31,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:autofillHints="@string/search"
+                android:hint="@string/search"
                 android:inputType="text"
+                android:backgroundTint="@color/white"
                 android:text="@{wordToSearch}"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
@@ -43,9 +46,10 @@
                 android:id="@+id/searchBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:backgroundTint="@color/white"
+                android:background="@drawable/rounded_button"
+                android:backgroundTint="@color/material_on_primary_disabled"
                 android:contentDescription="@string/todo"
+                android:padding="7dp"
                 android:src="@drawable/search_icon"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"

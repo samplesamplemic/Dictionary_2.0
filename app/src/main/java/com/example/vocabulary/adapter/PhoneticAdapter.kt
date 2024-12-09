@@ -6,67 +6,53 @@ import android.util.Log
 import android.widget.ImageButton
 import com.example.vocabulary.R
 import com.example.vocabulary.model.dto.Phonetic
-import java.util.*
+import java.util.Timer
 import kotlin.concurrent.timerTask
 
 class PhoneticAdapter {
 
     companion object {
+        var phoneticText = ""
+        var phoneticAudio = ""
 
-        fun phoneticAdapter(itemToFind: List<Phonetic>?): String {
-            var itemFound: String = ""
-            if (itemToFind != null) {
-
-                run outer@{
-                    for (element in itemToFind) {
-                        itemFound = element.text.toString()
-                        Log.i("Parser: ", itemFound.toString() + itemToFind.toString())
-                        if (itemFound != "null") {
-                            return@outer
-                        }
-                    }
+        fun phoneticAdapter(listPhonetics: List<Phonetic>?): String {
+            listPhonetics?.mapNotNull { phonetic ->
+                val text = phonetic.text?.takeIf { it.isNotEmpty() }
+                val audio = phonetic.audio?.takeIf { it.isNotEmpty() }
+                if (text != null && audio != null) {
+                    phoneticText = text
+                    phoneticAudio = audio
+                } else {
+                    null
                 }
             }
-            return itemFound
+            return phoneticText
         }
 
         fun playPronounce(itemToFind: List<Phonetic>?, iconPlay: ImageButton) {
+            Log.i("Pronounce Audio:", phoneticAudio)
+            Log.i("Pronounce Text:", phoneticText)
 
-            val listAudio: MutableList<String?> = mutableListOf()
-            var wordAudio: String? = ""
-            val mediaPlayer: MediaPlayer = MediaPlayer()
-            var pause: Boolean = true
-
-            if (itemToFind != null) {
-                for (element in itemToFind) {
-                    wordAudio = element.audio.toString()
-                    if (wordAudio != "") {
-                        listAudio.add(wordAudio)
-                    }
-                    print(listAudio)
-                }
-            }
-
-            mediaPlayer.setAudioAttributes(
-                AudioAttributes
-                    .Builder()
-                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                    .build()
-            )
             iconPlay.setOnClickListener {
-                if (pause) {
-                    mediaPlayer.reset();
-                    println(listAudio[0])
-                    mediaPlayer.setDataSource(listAudio[0])
-                    mediaPlayer.prepare()
-                    mediaPlayer.start()
-
-                    iconPlay.setBackgroundResource(R.drawable.baseline_stop_24)
-                    Timer().schedule(timerTask {
-                        iconPlay.setBackgroundResource(R.drawable.baseline_play_arrow_24)
-                    }, mediaPlayer.duration.toLong() + 350)
+                if (phoneticAudio.isNotEmpty()) {
+                    MediaPlayer().apply {
+                        setAudioAttributes(
+                            AudioAttributes.Builder()
+                                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                                .build()
+                        )
+                        setDataSource(phoneticAudio)
+                        prepare()
+                        start()
+                    }.let { mediaPlayer ->
+                        iconPlay.setBackgroundResource(R.drawable.baseline_stop_24)
+                        Timer().schedule(timerTask {
+                            iconPlay.setBackgroundResource(R.drawable.baseline_play_arrow_24)
+                        }, mediaPlayer.duration + 350L)
+                    }
                 }
             }
         }
     }
 }
+

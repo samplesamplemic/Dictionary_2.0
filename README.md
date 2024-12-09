@@ -1,8 +1,8 @@
 ## Dictionary
 
- Dictionary app, developed in Kotlin. 
+ Dictionary app, developed in Kotlin. I used a external dictionary free API.
 
-<div><img alt="img" src="./app/src/main/res/drawable/style_readme.png" height="300" width="150"/> </div>
+<div><img alt="img" src="./app/src/main/res/drawable/dictionary_layout.png" height="300" width="150"/> </div>
 
 ### Built With
 - [![Kotlin][Kotlin.]][Kotlin-url]
