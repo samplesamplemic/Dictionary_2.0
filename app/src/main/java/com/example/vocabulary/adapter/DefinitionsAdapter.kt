@@ -3,6 +3,8 @@ package com.example.vocabulary.adapter
 import com.example.vocabulary.model.dto.Meaning
 
 class DefinitionsAdapter {
+    private lateinit var meaning: Meaning;
+
 
     companion object {
         fun definitionAdapter(meanings: List<Meaning>): String {

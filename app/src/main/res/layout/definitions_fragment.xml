@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-            name="definitions"
-            type="com.example.vocabulary.model.dto.Definition" />
+            name="meaning"
+            type="com.example.vocabulary.model.dto.Meaning" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,20 +14,55 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/meanings"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="25dp"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/definitionId"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/josefin_sans"
-                android:nestedScrollingEnabled="true"
-                android:text="@{definitions.definition}"
-                android:textColor="@color/white"
-                android:textSize="22sp" />
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/recycler_view"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="0dp"-->
+<!--                android:layout_weight="1" />-->
+
+<!--            <androidx.fragment.app.FragmentContainerView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                tools:layout="@layout/item_example" />-->
+
+            <!--            <androidx.fragment.app.FragmentContainerView-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="match_parent"-->
+            <!--                tools:layout="@layout/meaning_fragment" />-->
+
+            <!--            <TextView-->
+            <!--                android:id="@+id/partOfSpeech"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:fontFamily="@font/josefin_sans"-->
+            <!--                android:nestedScrollingEnabled="true"-->
+            <!--                android:text="@{meaning.partOfSpeech}"-->
+            <!--                android:textColor="@color/white"-->
+            <!--                android:textSize="22sp" />-->
+
+            <!--            <TextView-->
+            <!--                android:id="@+id/definition_text"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:fontFamily="@font/josefin_sans"-->
+            <!--                android:nestedScrollingEnabled="true"-->
+            <!--                android:textColor="@color/white"-->
+            <!--                android:textSize="22sp" />-->
+
+            <!--            <TextView-->
+            <!--                android:id="@+id/examples"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:fontFamily="@font/josefin_sans_italic"-->
+            <!--                android:nestedScrollingEnabled="true"-->
+            <!--                android:textColor="@color/white"-->
+            <!--                android:textSize="20sp" />-->
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

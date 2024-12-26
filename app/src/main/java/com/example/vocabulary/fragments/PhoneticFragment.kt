@@ -16,7 +16,7 @@ import com.example.vocabulary.viewModel.ItemViewModel
 import kotlinx.coroutines.launch
 
 class PhoneticFragment : Fragment() {
-    private lateinit var searchedWord: TextView
+    //private lateinit var searchedWord: TextView
     private lateinit var binding: PhoneticFragmentBinding
     private val viewModel: ItemViewModel by activityViewModels()
 
@@ -32,10 +32,12 @@ class PhoneticFragment : Fragment() {
                     binding.wordSearched.text = item.message
                     binding.pronounce.text = ""
                 } else {
-                    val phoneticToFind = item.data?.get(0)?.phonetics
+                    val phoneticToFind = item.data[0].phonetics
                     val phoneticFound = PhoneticAdapter.phoneticAdapter(phoneticToFind)
-                    val wordSearched = item.data?.get(0)?.word?.substring(0, 1)
-                        ?.uppercase() + item.data?.get(0)?.word?.substring(1)
+                    val wordSearched = item.data[0]
+                        .word
+                        .substring(0, 1)
+                        .uppercase() + item.data[0].word.substring(1)
 
                     binding.wordSearched.text = wordSearched
                     binding.pronounce.text = phoneticFound
