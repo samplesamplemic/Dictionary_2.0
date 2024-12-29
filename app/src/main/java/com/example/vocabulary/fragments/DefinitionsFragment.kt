@@ -1,5 +1,6 @@
 package com.example.vocabulary.fragments
 
+import MeaningAdapter
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,14 +11,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.vocabulary.R
-import com.example.vocabulary.adapter.MeaningAdapter
-import com.example.vocabulary.databinding.MeaningFragmentBinding
+import com.example.vocabulary.databinding.DefinitionsFragmentBinding
 import com.example.vocabulary.viewModel.ItemViewModel
 import kotlinx.coroutines.launch
 
 class DefinitionsFragment : Fragment() {
-    private lateinit var binding: MeaningFragmentBinding
+    private lateinit var binding: DefinitionsFragmentBinding
     private val viewModel: ItemViewModel by activityViewModels()
     private lateinit var meaningAdapter: MeaningAdapter
 
@@ -26,11 +27,9 @@ class DefinitionsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.meaning_fragment, container, false)
-
-        meaningAdapter = MeaningAdapter(emptyList())
-        binding.recyclerView.layoutManager = LinearLayoutManager(context)
-        binding.recyclerView.adapter = meaningAdapter
+        binding = DataBindingUtil.inflate(inflater, R.layout.definitions_fragment, container, false)
+        val recyclerView: RecyclerView = binding.root.findViewById(R.id.recyclerViewMeaning)
+        recyclerView.layoutManager = LinearLayoutManager(context)
 
         lifecycleScope.launch {
             viewModel.selectedItem.observe(viewLifecycleOwner) { item ->
@@ -39,9 +38,8 @@ class DefinitionsFragment : Fragment() {
                 } else {
                     val meanings = item.data[0].meanings
                     Log.i("Meanings: ", meanings.toString())
-                    // binding.definitionText.text = DefinitionsAdapter.definitionAdapter(meanings)
-                    //binding.partOfSpeech.text = meanings[0].partOfSpeech
-                    meaningAdapter.updateData(meanings)
+                    meaningAdapter = MeaningAdapter(requireContext(), meanings)
+                    recyclerView.adapter = meaningAdapter
                 }
             }
         }

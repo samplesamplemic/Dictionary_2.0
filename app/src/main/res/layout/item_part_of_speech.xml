@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingTop="8dp">
+    android:padding="10dp">
 
     <TextView
         android:id="@+id/part_of_speech"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/josefin_sans"
+        android:fontFamily="@font/josefin_sans_italic"
         android:textColor="@color/white"
-        android:textSize="22sp" />
+        android:textSize="25sp" />
 </LinearLayout>

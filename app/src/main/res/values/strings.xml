@@ -5,4 +5,5 @@
     <string name="logo_twitter">logo_twitter</string>
     <string name="search">Search…</string>
     <string name="imgDescription">image from word searched</string>
+    <string name="bullet">• %1$s</string>
 </resources>
