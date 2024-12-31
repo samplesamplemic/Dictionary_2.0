@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 
 class ItemViewModel() : ViewModel() {
 
-    private val wordRetriever: WordRetriever = WordRetriever()
+    var wordRetriever: WordRetriever = WordRetriever()
     private val mutableSelectedItem = MutableLiveData<Resource<Word>>()
     val selectedItem: LiveData<Resource<Word>> get() = mutableSelectedItem
     private val mutableLoadingState = MutableLiveData<Boolean>()
