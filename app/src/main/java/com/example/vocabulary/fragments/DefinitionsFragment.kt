@@ -34,7 +34,7 @@ class DefinitionsFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.selectedItem.observe(viewLifecycleOwner) { item ->
                 if (item.data.isNullOrEmpty()) {
-                    //binding.definitionText.text = item.message
+//                    binding.definitionText.text = item.message
                 } else {
                     val meanings = item.data[0].meanings
                     Log.i("Meanings: ", meanings.toString())

@@ -16,7 +16,6 @@ import com.example.vocabulary.viewModel.ItemViewModel
 import kotlinx.coroutines.launch
 
 class PhoneticFragment : Fragment() {
-    //private lateinit var searchedWord: TextView
     private lateinit var binding: PhoneticFragmentBinding
     private val viewModel: ItemViewModel by activityViewModels()
 

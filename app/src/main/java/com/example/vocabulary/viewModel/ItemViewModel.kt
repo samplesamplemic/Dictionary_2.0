@@ -14,6 +14,7 @@ class ItemViewModel() : ViewModel() {
     var wordRetriever: WordRetriever = WordRetriever()
     private val mutableSelectedItem = MutableLiveData<Resource<Word>>()
     val selectedItem: LiveData<Resource<Word>> get() = mutableSelectedItem
+
     private val mutableLoadingState = MutableLiveData<Boolean>()
     val loadingState: LiveData<Boolean> get() = mutableLoadingState
 

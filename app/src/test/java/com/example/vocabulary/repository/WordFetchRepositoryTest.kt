@@ -3,14 +3,17 @@ package com.example.vocabulary.repository
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.vocabulary.builder.WordBuilder
 import com.example.vocabulary.model.dto.Word
+import com.example.vocabulary.model.resource.Messages
 import com.example.vocabulary.model.resource.Resource
 import com.example.vocabulary.service.APIService
+import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
+import okhttp3.ResponseBody
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
@@ -49,7 +52,7 @@ class WordFetchRepositoryTest {
     }
 
     @Test
-    fun `getWord return ResourceSuccess when API call is successful`() = runTest {
+    fun `getWord returns ResourceSuccess when API call is successful`() = runTest {
         val word = WordBuilder.defaultWord()
         val wordToSearch = "example"
         val response = Response.success(word)
@@ -60,5 +63,19 @@ class WordFetchRepositoryTest {
 
         testDispatcher.scheduler.advanceUntilIdle()
         Assert.assertEquals(Resource.Success(word).data, result.data)
+    }
+
+    @Test
+    fun `getWord returns ResourceError when API call is unsuccessful`() = runTest {
+        val wordToSearch = "example"
+        val response = Response.error<Word>(400, ResponseBody.create(null, "Error"))
+        Mockito.`when`(apiService.fetchWord(wordToSearch)).thenReturn(response)
+
+        val result = wordFetchRepository.getWord(wordToSearch)
+        testDispatcher.scheduler.advanceUntilIdle()
+        assertEquals(
+            Resource.Error<Word>(Messages.GENERIC_ERROR_MSG.getMessage()).message,
+            result.message
+        )
     }
 }
