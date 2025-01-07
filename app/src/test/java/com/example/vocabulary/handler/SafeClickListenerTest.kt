@@ -2,41 +2,47 @@ package com.example.vocabulary.handler
 
 import android.os.SystemClock
 import android.view.View
-import androidx.constraintlayout.utils.widget.MockView
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import org.mockito.MockedStatic
 import org.mockito.Mockito
-import org.mockito.Mockito.times
-import org.mockito.Mockito.verify
-import org.mockito.MockitoAnnotations
+import org.mockito.Mockito.mock
 
 class SafeClickListenerTest {
-    private lateinit var mockView: View
+
+    private lateinit var viewMock: View
+    private var clickCount = 0
     private lateinit var safeClickListener: SafeClickListener
+    private lateinit var mockedStatic: MockedStatic<SystemClock>
 
     @Before
-    fun setup() {
-        MockitoAnnotations.openMocks(this)
-        mockView = Mockito.mock(View::class.java)
-        safeClickListener = SafeClickListener(defaultInterval = 1000) { }
+    fun setUp() {
+        viewMock = mock(View::class.java)
+        clickCount = 0
+        safeClickListener = SafeClickListener(
+            defaultInterval = 1000,
+            onSafeClick = { clickCount++ }
+        )
+        mockedStatic = Mockito.mockStatic(SystemClock::class.java)
+    }
+
+    @After
+    fun tearDown() {
+        mockedStatic.close()
     }
 
     @Test
-    fun testClickWithInterval() {
-        val mockOnSafeClick = Mockito.mock(View.OnClickListener::class.java)
-        safeClickListener = SafeClickListener(1000) {
-            mockOnSafeClick.onClick(mockView)
-        }
+    fun testSafeClickListener() {
+        // Mock elapsedRealtime to return different values for each call
+        mockedStatic.`when`<Long> { SystemClock.elapsedRealtime() }.thenReturn(1000L, 1500L, 2500L)
 
-        safeClickListener.onClick(mockView)
-        verify(mockOnSafeClick, times(1)).onClick(mockView)
+        // Simulate clicks
+        safeClickListener.onClick(viewMock) // First click
+        safeClickListener.onClick(viewMock) // Second click, within interval, should be ignored
+        safeClickListener.onClick(viewMock) // Third click, outside interval, should be registered
 
-        SystemClock.setCurrentTimeMillis(SystemClock.elapsedRealtime() + 500)
-        safeClickListener.onClick(mockView)
-        verify(mockOnSafeClick, times(1)).onClick(mockView)
-
-        SystemClock.setCurrentTimeMillis(SystemClock.elapsedRealtime() + 1500)
-        safeClickListener.onClick(mockView)
-        verify(mockOnSafeClick, times(2)).onClick(mockView)
+        // Verify that onSafeClick was called twice
+        assert(clickCount == 2)
     }
 }
