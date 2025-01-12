@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.example.vocabulary.databinding.ActivityMainBinding
+import com.example.vocabulary.model.resource.Resource
 import com.example.vocabulary.viewModel.ItemViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -17,15 +18,25 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding: ActivityMainBinding =
-            DataBindingUtil.setContentView(this, R.layout.activity_main)
+//        val binding: ActivityMainBinding =
+//            DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         progressBar = findViewById(R.id.progressBar)
 
-        viewModel.loadingState.observe(this, Observer { isLoading ->
-            progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-        })
+//        viewModel.selectedItem.observe(this, Observer { resource ->
+//            when (resource) {
+//                is Resource.Loading -> {
+//                    progressBar.visibility = View.VISIBLE
+//                }
+//
+//                is Resource.Success -> {
+//                    progressBar.visibility = View.GONE
+//                }
+//
+//                is Resource.Error -> {
+//                    progressBar.visibility = View.GONE
+//                }
+//            }
+//        })
     }
-
-
 }

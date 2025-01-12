@@ -172,3 +172,7 @@ import com.example.vocabulary.model.dto.Meaning
 //    }
 //}
 //}
+
+//        viewModel.loadingState.observe(this, Observer { isLoading ->
+//            progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+//        })

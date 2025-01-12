@@ -10,19 +10,14 @@ import com.example.vocabulary.network.WordRetriever
 import kotlinx.coroutines.launch
 
 class ItemViewModel() : ViewModel() {
-
-    var wordRetriever: WordRetriever = WordRetriever()
     private val mutableSelectedItem = MutableLiveData<Resource<Word>>()
+    var wordRetriever: WordRetriever = WordRetriever()
     val selectedItem: LiveData<Resource<Word>> get() = mutableSelectedItem
 
-    private val mutableLoadingState = MutableLiveData<Boolean>()
-    val loadingState: LiveData<Boolean> get() = mutableLoadingState
-
     fun selectItem(word: String) = viewModelScope.launch {
-        mutableLoadingState.postValue(true)
+        mutableSelectedItem.postValue(Resource.Loading())
         val result = wordRetriever.getData(word)
         mutableSelectedItem.postValue(result)
-        mutableLoadingState.postValue(false)
     }
 }
 
