@@ -31,8 +31,8 @@ class ItemViewModelTest {
     @Mock
     private lateinit var wordRetriever: WordRetriever
 
-    @Mock
-    private lateinit var observerLoadingState: Observer<Boolean>
+//    @Mock
+//    private lateinit var observerLoadingState: Observer<Resource<Word>>
 
     @Mock
     private lateinit var observerSelectedItem: Observer<Resource<Word>>
@@ -45,9 +45,9 @@ class ItemViewModelTest {
     fun setUp() {
         closeable = MockitoAnnotations.openMocks(this)
         Dispatchers.setMain(testDispatcher)
-        itemViewModel =
-            ItemViewModel().apply { this.wordRetriever = this@ItemViewModelTest.wordRetriever }
-        itemViewModel.loadingState.observeForever(observerLoadingState)
+        itemViewModel = ItemViewModel(wordRetriever)
+//            ItemViewModel().apply { this.wordRetriever = this@ItemViewModelTest.wordRetriever }
+//        itemViewModel.loadingState.observeForever(observerLoadingState)
         itemViewModel.selectedItem.observeForever(observerSelectedItem)
     }
 
@@ -68,9 +68,8 @@ class ItemViewModelTest {
         itemViewModel.selectItem(word)
 
         testDispatcher.scheduler.advanceUntilIdle()
-        Mockito.verify(observerLoadingState).onChanged(true)
+        Mockito.verify(observerSelectedItem).onChanged(Resource.Loading())
         Mockito.verify(observerSelectedItem).onChanged(expectedResult)
-        Mockito.verify(observerLoadingState).onChanged(false)
         assertEquals(expectedResult, itemViewModel.selectedItem.value)
     }
 }

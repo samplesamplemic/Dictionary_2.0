@@ -1,7 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'com.google.devtools.ksp' version '1.8.0-1.0.8'
+//    id 'com.google.devtools.ksp' version '1.8.0-1.0.8'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -48,6 +50,13 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.8.4'
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.2.0'
 
+    //Dependency Injection
+    implementation "com.google.dagger:hilt-android:2.51.1"
+    kapt "com.google.dagger:hilt-compiler:2.51.1"
+
+    // KSP
+//    implementation "com.google.devtools.ksp:symbol-processing-api:1.9.20-1.0.14"
+
     // Unit Test Dependencies
     testImplementation "junit:junit:4.13.2"
     testImplementation "org.mockito:mockito-core:4.0.0"
@@ -63,13 +72,16 @@ dependencies {
     debugImplementation "androidx.fragment:fragment-testing-manifest:1.8.5"
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
     androidTestImplementation "org.mockito:mockito-android:4.0.0"
-    // Update to match Mockito core version
 
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation "com.squareup.moshi:moshi:1.14.0"
-    ksp("com.squareup.moshi:moshi-kotlin-codegen:1.14.0")
+    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.14.0")
     implementation "org.jsoup:jsoup:1.15.4"
     implementation 'com.squareup.picasso:picasso:2.8'
     implementation 'com.google.code.gson:gson:2.10.1'
+}
+
+kapt {
+    correctErrorTypes true
 }

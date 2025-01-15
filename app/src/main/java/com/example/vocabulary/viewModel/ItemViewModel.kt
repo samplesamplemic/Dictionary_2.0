@@ -7,17 +7,25 @@ import androidx.lifecycle.viewModelScope
 import com.example.vocabulary.model.dto.Word
 import com.example.vocabulary.model.resource.Resource
 import com.example.vocabulary.network.WordRetriever
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ItemViewModel() : ViewModel() {
+@HiltViewModel
+class ItemViewModel @Inject constructor(
+    private val wordRetriever: WordRetriever
+) : ViewModel() {
     private val mutableSelectedItem = MutableLiveData<Resource<Word>>()
-    var wordRetriever: WordRetriever = WordRetriever()
     val selectedItem: LiveData<Resource<Word>> get() = mutableSelectedItem
 
     fun selectItem(word: String) = viewModelScope.launch {
         mutableSelectedItem.postValue(Resource.Loading())
-        val result = wordRetriever.getData(word)
-        mutableSelectedItem.postValue(result)
+        try {
+            val result = wordRetriever.getData(word)
+            mutableSelectedItem.postValue(result)
+        } catch (e: Exception) {
+            mutableSelectedItem.postValue(Resource.Error(e.localizedMessage ?: "Unknown Error"))
+        }
     }
 }
 

@@ -11,7 +11,9 @@ import androidx.lifecycle.Observer
 import com.example.vocabulary.R
 import com.example.vocabulary.model.resource.Resource
 import com.example.vocabulary.viewModel.ItemViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ProgressBarFragment : Fragment() {
     private val viewModel: ItemViewModel by activityViewModels()
     override fun onCreateView(
@@ -25,8 +27,8 @@ class ProgressBarFragment : Fragment() {
 
         viewModel.selectedItem.observe(viewLifecycleOwner, Observer { resource ->
             when (resource) {
-                is Resource.Error -> progressBar.visibility = View.VISIBLE
-                is Resource.Loading -> progressBar.visibility = View.GONE
+                is Resource.Error -> progressBar.visibility = View.GONE
+                is Resource.Loading -> progressBar.visibility = View.VISIBLE
                 is Resource.Success -> progressBar.visibility = View.GONE
             }
         })
