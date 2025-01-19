@@ -1,10 +1,15 @@
 package com.example.vocabulary.repository
 
-import com.example.vocabulary.model.resource.Resource
 import com.example.vocabulary.model.dto.Word
+import com.example.vocabulary.model.resource.Resource
 import com.example.vocabulary.service.APIService
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class WordFetchRepository(private val apiService: APIService): BaseWordRepository() {
+@Singleton
+class WordFetchRepository @Inject constructor(
+    private val apiService: APIService
+) : BaseWordRepository() {
     suspend fun getWord(word: String): Resource<Word> {
         return apiCall { apiService.fetchWord(word) }
     }

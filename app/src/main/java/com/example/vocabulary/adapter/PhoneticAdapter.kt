@@ -16,20 +16,18 @@ class PhoneticAdapter {
         var phoneticAudio = ""
 
         fun phoneticAdapter(listPhonetics: List<Phonetic>?): String {
-            listPhonetics?.mapNotNull { phonetic ->
-                val text = phonetic.text?.takeIf { it.isNotEmpty() }
-                val audio = phonetic.audio?.takeIf { it.isNotEmpty() }
-                if (text != null && audio != null) {
-                    phoneticText = text
-                    phoneticAudio = audio
-                } else {
-                    null
+            listPhonetics?.forEach { phonetic ->
+                phonetic.text?.let { text ->
+                    phonetic.audio?.let { audio ->
+                        phoneticText = text
+                        phoneticAudio = audio
+                    }
                 }
             }
             return phoneticText
         }
 
-        fun playPronounce(itemToFind: List<Phonetic>?, iconPlay: ImageButton) {
+        fun playPronounce(iconPlay: ImageButton) {
             Log.i("Pronounce Audio:", phoneticAudio)
             Log.i("Pronounce Text:", phoneticText)
 

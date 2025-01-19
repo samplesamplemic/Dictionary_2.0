@@ -176,3 +176,33 @@ import com.example.vocabulary.model.dto.Meaning
 //        viewModel.loadingState.observe(this, Observer { isLoading ->
 //            progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
 //        })
+
+//package com.example.vocabulary.network
+//
+//import com.example.vocabulary.model.dto.Word
+//import com.example.vocabulary.model.resource.Resource
+//import com.example.vocabulary.repository.WordFetchRepository
+//import com.example.vocabulary.service.APIService
+//import retrofit2.Retrofit
+//import retrofit2.converter.gson.GsonConverterFactory
+//import javax.inject.Inject
+//import javax.inject.Singleton
+//
+//@Singleton
+//class WordRetriever @Inject constructor(private val service: APIService) {
+//    private val baseURL = "https://api.dictionaryapi.dev/api/v2/entries/en/"
+//    private val retrofit: Retrofit by lazy {
+//        Retrofit.Builder()
+//            .baseUrl(baseURL)
+//            .addConverterFactory(GsonConverterFactory.create())
+//            .build()
+//    }
+//    private val service: APIService by lazy {
+//        retrofit.create(APIService::class.java)
+//    }
+//
+//    suspend fun getData(wordToSearch: String): Resource<Word> {
+//        return WordFetchRepository(service).getWord(wordToSearch);
+//    }
+//}
+//

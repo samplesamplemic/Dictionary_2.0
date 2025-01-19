@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -12,10 +11,13 @@ import androidx.lifecycle.lifecycleScope
 import com.example.vocabulary.R
 import com.example.vocabulary.adapter.PhoneticAdapter
 import com.example.vocabulary.databinding.PhoneticFragmentBinding
+import com.example.vocabulary.model.dto.Word
+import com.example.vocabulary.model.resource.Resource
 import com.example.vocabulary.viewModel.ItemViewModel
 import kotlinx.coroutines.launch
+import java.util.Locale
 
-class PhoneticFragment : Fragment() {
+class PhoneticFragment : Fragment(), FragmentBase {
     private lateinit var binding: PhoneticFragmentBinding
     private val viewModel: ItemViewModel by activityViewModels()
 
@@ -27,25 +29,38 @@ class PhoneticFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.phonetic_fragment, container, false)
         lifecycleScope.launch {
             viewModel.selectedItem.observe(viewLifecycleOwner) { item ->
-                if (item.data.isNullOrEmpty()) {
-                    binding.wordSearched.text = item.message
-                    binding.pronounce.text = ""
-                } else {
-                    val phoneticToFind = item.data[0].phonetics
-                    val phoneticFound = PhoneticAdapter.phoneticAdapter(phoneticToFind)
-                    val wordSearched = item.data[0]
-                        .word
-                        .substring(0, 1)
-                        .uppercase() + item.data[0].word.substring(1)
+                when (item) {
+                    is Resource.Error -> {
+                        binding.iconPlay.visibility = View.GONE
+                    }
 
-                    binding.wordSearched.text = wordSearched
-                    binding.pronounce.text = phoneticFound
-                    PhoneticAdapter.playPronounce(phoneticToFind, binding.iconPlay)
+                    is Resource.Loading -> {
+                        binding.iconPlay.visibility = View.GONE
+                    }
+
+                    is Resource.Success -> {
+                        handleResourceSuccess(item)
+                    }
                 }
-
-
             }
         }
         return binding.root
+    }
+
+    override fun handleResourceSuccess(word: Resource<Word>) {
+        if (word.data.isNullOrEmpty()) {
+            binding.wordSearched.text = word.message
+            binding.pronounce.text = ""
+        } else {
+            binding.iconPlay.visibility = View.VISIBLE
+            val phoneticToFind = word.data[0].phonetics
+            val phoneticFound = PhoneticAdapter.phoneticAdapter(phoneticToFind)
+            val wordSearched = word.data[0]
+                .word.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() }
+
+            binding.wordSearched.text = wordSearched
+            binding.pronounce.text = phoneticFound
+            PhoneticAdapter.playPronounce(binding.iconPlay)
+        }
     }
 }

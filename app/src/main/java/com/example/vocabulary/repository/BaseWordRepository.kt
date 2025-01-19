@@ -9,19 +9,20 @@ import retrofit2.Response
 import java.io.IOException
 
 abstract class BaseWordRepository() {
-    private val errorMessage: String = Messages.GENERIC_ERROR_MSG.getMessage()
 
     suspend fun <T> apiCall(apiToBeCalled: suspend () -> Response<T>): Resource<T> {
-
         return withContext(Dispatchers.IO) {
             try {
                 val response: Response<T> = apiToBeCalled()
                 if (response.isSuccessful) {
+                    response.body()?.let {
+                        Resource.Success(data = it)
+                    } ?: Resource.Error(message = Messages.NO_DATA_ERROR_MSG.getMessage())
 //                    Log.i("Response body: ", Gson().toJson(response.body()).toString())
-                    Resource.Success(data = response.body()!!)
                 } else {
                     Resource.Error(
-                        message = errorMessage
+                        message = response.errorBody()?.string()
+                            ?: Messages.GENERIC_ERROR_MSG.getMessage()
                     )
                 }
             } catch (e: HttpException) {
@@ -29,7 +30,7 @@ abstract class BaseWordRepository() {
             } catch (e: IOException) {
                 Resource.Error(message = e.message ?: "Please check your network connection")
             } catch (e: Exception) {
-                Resource.Error(message = errorMessage)
+                Resource.Error(message = Messages.NO_DATA_ERROR_MSG.getMessage())
             }
         }
     }
