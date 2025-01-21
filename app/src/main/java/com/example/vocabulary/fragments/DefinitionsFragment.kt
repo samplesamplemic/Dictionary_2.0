@@ -54,6 +54,11 @@ class DefinitionsFragment : Fragment(), FragmentBase {
         return binding.root
     }
 
+    private fun setupRecyclerView() {
+        binding.recyclerViewMeaning.layoutManager = LinearLayoutManager(context)
+
+    }
+
     override fun handleResourceSuccess(word: Resource<Word>) {
         if (word.data.isNullOrEmpty()) {
             binding.recyclerViewMeaning.visibility = View.GONE
@@ -64,5 +69,9 @@ class DefinitionsFragment : Fragment(), FragmentBase {
             meaningAdapter = MeaningAdapter(requireContext(), meanings)
             recyclerView.adapter = meaningAdapter
         }
+    }
+
+    override fun updateViewVisibility(isVisible: Boolean) {
+        binding.recyclerViewMeaning.visibility = if (isVisible) View.VISIBLE else View.GONE
     }
 }
