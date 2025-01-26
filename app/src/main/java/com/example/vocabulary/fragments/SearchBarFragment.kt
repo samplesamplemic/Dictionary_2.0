@@ -9,12 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.vocabulary.R
 import com.example.vocabulary.databinding.SearchbarFragmentBinding
-import com.example.vocabulary.handler.SafeClickListener
-import com.example.vocabulary.model.dto.Word
-import com.example.vocabulary.model.resource.Resource
+import com.example.vocabulary.handler.setSafeOnClickListener
 import com.example.vocabulary.viewModel.ItemViewModel
 
-class SearchBarFragment : Fragment(), FragmentBase {
+class SearchBarFragment : Fragment() {
     private val viewModel: ItemViewModel by activityViewModels()
     private lateinit var binding: SearchbarFragmentBinding
 
@@ -27,20 +25,12 @@ class SearchBarFragment : Fragment(), FragmentBase {
 
         binding.searchBtn.setSafeOnClickListener {
             val wordToSearch = binding.searchBar.text.toString()
-            viewModel.selectItem(wordToSearch)
+            if (wordToSearch.isNotBlank()) {
+
+                viewModel.selectItem(wordToSearch)
+            }
         }
         return binding.root
-    }
-
-    private fun View.setSafeOnClickListener(onSafeClick: (View) -> Unit) {
-        val safeClickListener = SafeClickListener {
-            onSafeClick(it)
-        }
-        setOnClickListener(safeClickListener)
-    }
-
-    override fun handleResourceSuccess(word: Resource<Word>) {
-
     }
 }
 

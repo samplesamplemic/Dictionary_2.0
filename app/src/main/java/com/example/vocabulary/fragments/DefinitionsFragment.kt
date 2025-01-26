@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -30,19 +29,17 @@ class DefinitionsFragment : Fragment(), FragmentBase {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.definitions_fragment, container, false)
-        recyclerView = binding.root.findViewById(R.id.recyclerViewMeaning)
-        recyclerView.layoutManager = LinearLayoutManager(context)
+        setupRecyclerView()
 
         lifecycleScope.launch {
             viewModel.selectedItem.observe(viewLifecycleOwner) { resource ->
                 when (resource) {
                     is Resource.Error -> {
-                        binding.recyclerViewMeaning.visibility = View.GONE
+                        updateViewVisibility(false)
                     }
 
                     is Resource.Loading -> {
-                        binding.recyclerViewMeaning.visibility = View.GONE
+                        updateViewVisibility(false)
                     }
 
                     is Resource.Success -> {
@@ -56,16 +53,17 @@ class DefinitionsFragment : Fragment(), FragmentBase {
 
     private fun setupRecyclerView() {
         binding.recyclerViewMeaning.layoutManager = LinearLayoutManager(context)
-
+        recyclerView = binding.root.findViewById(R.id.recyclerViewMeaning)
+        recyclerView.layoutManager = LinearLayoutManager(context)
     }
 
     override fun handleResourceSuccess(word: Resource<Word>) {
         if (word.data.isNullOrEmpty()) {
-            binding.recyclerViewMeaning.visibility = View.GONE
+            updateViewVisibility(false)
         } else {
             val meanings = word.data[0].meanings
             Log.i("Meanings: ", meanings.toString())
-            binding.recyclerViewMeaning.visibility = View.VISIBLE
+            updateViewVisibility(true)
             meaningAdapter = MeaningAdapter(requireContext(), meanings)
             recyclerView.adapter = meaningAdapter
         }

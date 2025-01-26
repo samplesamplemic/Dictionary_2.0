@@ -31,11 +31,11 @@ class PhoneticFragment : Fragment(), FragmentBase {
             viewModel.selectedItem.observe(viewLifecycleOwner) { item ->
                 when (item) {
                     is Resource.Error -> {
-                        binding.iconPlay.visibility = View.GONE
+                        updateViewVisibility(false)
                     }
 
                     is Resource.Loading -> {
-                        binding.iconPlay.visibility = View.GONE
+                        updateViewVisibility(false)
                     }
 
                     is Resource.Success -> {
@@ -52,7 +52,7 @@ class PhoneticFragment : Fragment(), FragmentBase {
             binding.wordSearched.text = word.message
             binding.pronounce.text = ""
         } else {
-            binding.iconPlay.visibility = View.VISIBLE
+            updateViewVisibility(true)
             val phoneticToFind = word.data[0].phonetics
             val phoneticFound = PhoneticAdapter.phoneticAdapter(phoneticToFind)
             val wordSearched = word.data[0]
@@ -62,5 +62,9 @@ class PhoneticFragment : Fragment(), FragmentBase {
             binding.pronounce.text = phoneticFound
             PhoneticAdapter.playPronounce(binding.iconPlay)
         }
+    }
+
+    override fun updateViewVisibility(isVisible: Boolean) {
+        binding.iconPlay.visibility = if (isVisible) View.VISIBLE else View.GONE
     }
 }

@@ -1,8 +1,33 @@
 ## Dictionary
 
- Dictionary app, developed in Kotlin. I used a external dictionary free API.
+A powerful dictionary application developed in Kotlin, utilizing a free external dictionary API to provide comprehensive definitions and meanings of words. 
+The app uses the Hilt library for dependency injection and features a web-scraper to retrieve images of searched words from Wikipedia. 
+However, the image retrieval functionality is currently excluded from the view due to its imperfect functionality.
 
 <div><img alt="img" src="./app/src/main/res/drawable/dictionary_layout.png" height="300" width="150"/> </div>
+
+## Features
+
+- **Search Functionality:** Users can easily search for any word and get its definition, pronunciation, and usage.
+- **Meaning List:** Displays a list of meanings for the searched word, including parts of speech.
+
+## Getting Started
+
+### Prerequisites
+
+- Android Studio
+- Kotlin
+- Gradle
+
+### Installation
+
+1. **Clone the repository:**
+   ```sh
+   git clone https://github.com/yourusername/dictionary-app.git
+   cd dictionary-app
+2. **Open the project in Android Studio**
+3. **Build the project**
+4. **Run the app on an emulator or physical device**
 
 ### Built With
 - [![Kotlin][Kotlin.]][Kotlin-url]
