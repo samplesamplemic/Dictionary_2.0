@@ -2,7 +2,6 @@ package com.example.vocabulary.fragments
 
 import MeaningAdapter
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,26 +28,22 @@ class DefinitionsFragment : Fragment(), FragmentBase {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        setupRecyclerView()
+        binding = DefinitionsFragmentBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupRecyclerView()
         lifecycleScope.launch {
             viewModel.selectedItem.observe(viewLifecycleOwner) { resource ->
                 when (resource) {
-                    is Resource.Error -> {
-                        updateViewVisibility(false)
-                    }
-
-                    is Resource.Loading -> {
-                        updateViewVisibility(false)
-                    }
-
-                    is Resource.Success -> {
-                        handleResourceSuccess(resource)
-                    }
+                    is Resource.Error -> updateViewVisibility(false)
+                    is Resource.Loading -> updateViewVisibility(false)
+                    is Resource.Success -> handleResourceSuccess(resource)
                 }
             }
         }
-        return binding.root
     }
 
     private fun setupRecyclerView() {
@@ -62,7 +57,6 @@ class DefinitionsFragment : Fragment(), FragmentBase {
             updateViewVisibility(false)
         } else {
             val meanings = word.data[0].meanings
-            Log.i("Meanings: ", meanings.toString())
             updateViewVisibility(true)
             meaningAdapter = MeaningAdapter(requireContext(), meanings)
             recyclerView.adapter = meaningAdapter

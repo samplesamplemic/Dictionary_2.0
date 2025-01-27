@@ -30,17 +30,9 @@ class PhoneticFragment : Fragment(), FragmentBase {
         lifecycleScope.launch {
             viewModel.selectedItem.observe(viewLifecycleOwner) { item ->
                 when (item) {
-                    is Resource.Error -> {
-                        updateViewVisibility(false)
-                    }
-
-                    is Resource.Loading -> {
-                        updateViewVisibility(false)
-                    }
-
-                    is Resource.Success -> {
-                        handleResourceSuccess(item)
-                    }
+                    is Resource.Error -> updateViewVisibility(false)
+                    is Resource.Loading -> updateViewVisibility(false)
+                    is Resource.Success -> handleResourceSuccess(item)
                 }
             }
         }
