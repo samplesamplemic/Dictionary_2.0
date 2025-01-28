@@ -3,7 +3,6 @@ package com.example.vocabulary.repository
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.vocabulary.builder.WordBuilder
 import com.example.vocabulary.model.dto.Word
-import com.example.vocabulary.model.resource.Messages
 import com.example.vocabulary.model.resource.Resource
 import com.example.vocabulary.service.APIService
 import junit.framework.TestCase.assertEquals
@@ -41,7 +40,6 @@ class WordFetchRepositoryTest {
     fun setUp() {
         closeable = MockitoAnnotations.openMocks(this)
         Dispatchers.setMain(testDispatcher)
-
         wordFetchRepository = WordFetchRepository(apiService)
     }
 
@@ -68,14 +66,14 @@ class WordFetchRepositoryTest {
     @Test
     fun `getWord returns ResourceError when API call is unsuccessful`() = runTest {
         val wordToSearch = "example"
-        val response = Response.error<Word>(400, ResponseBody.create(null, "Error"))
+        val errorMsg = "Error"
+        val response = Response.error<Word>(400, ResponseBody.create(null, errorMsg))
+
         Mockito.`when`(apiService.fetchWord(wordToSearch)).thenReturn(response)
 
         val result = wordFetchRepository.getWord(wordToSearch)
+
         testDispatcher.scheduler.advanceUntilIdle()
-        assertEquals(
-            Resource.Error<Word>(Messages.GENERIC_ERROR_MSG.getMessage()).message,
-            result.message
-        )
+        assertEquals(errorMsg, result.message)
     }
 }

@@ -26,7 +26,6 @@ class SearchBarFragment : Fragment() {
         binding.searchBtn.setSafeOnClickListener {
             val wordToSearch = binding.searchBar.text.toString()
             if (wordToSearch.isNotBlank()) {
-
                 viewModel.selectItem(wordToSearch)
             }
         }

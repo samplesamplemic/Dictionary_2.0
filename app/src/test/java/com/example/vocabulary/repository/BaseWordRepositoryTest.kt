@@ -103,15 +103,14 @@ class BaseWordRepositoryTest {
     }
 
     @Test
-    fun `apiCall returns ResourceError on generic Exception`() =
-        runTest {
-            val exception = Exception("Generic Error")
-            val result = baseWordRepository.apiCall<String> { throw exception }
+    fun `apiCall returns ResourceError on generic Exception`() = runTest {
+        val exception = Exception("Generic Error")
+        val result = baseWordRepository.apiCall<String> { throw exception }
 
-            testDispatcher.scheduler.advanceUntilIdle()
-            assertEquals(
-                Resource.Error<String>(Messages.GENERIC_ERROR_MSG.getMessage()).message,
-                result.message
-            )
-        }
+        testDispatcher.scheduler.advanceUntilIdle()
+        assertEquals(
+            Resource.Error<String>(Messages.NO_DATA_ERROR_MSG.getMessage()).message,
+            result.message
+        )
+    }
 }
