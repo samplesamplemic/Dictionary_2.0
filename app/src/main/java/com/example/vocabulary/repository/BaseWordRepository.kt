@@ -2,35 +2,36 @@ package com.example.vocabulary.repository
 
 import com.example.vocabulary.model.resource.Messages
 import com.example.vocabulary.model.resource.Resource
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
 
-abstract class BaseWordRepository() {
+abstract class BaseWordRepository(private val dispatcher: CoroutineDispatcher = Dispatchers.IO) {
 
     suspend fun <T> apiCall(apiToBeCalled: suspend () -> Response<T>): Resource<T> {
-        return withContext(Dispatchers.IO) {
+        return withContext(dispatcher) {
             try {
                 val response: Response<T> = apiToBeCalled()
                 if (response.isSuccessful) {
                     response.body()?.let {
-                        Resource.Success(data = it)
-                    } ?: Resource.Error(message = Messages.NO_DATA_ERROR_MSG.getMessage())
+                        return@withContext Resource.Success(it)
+                    }
+                    return@withContext Resource.Error(message = Messages.NO_DATA_ERROR_MSG.getMessage())
 //                    Log.i("Response body: ", Gson().toJson(response.body()).toString())
                 } else {
-                    Resource.Error(
-                        message = response.errorBody()?.string()
-                            ?: Messages.GENERIC_ERROR_MSG.getMessage()
-                    )
+                    val errorMsg =
+                        response.errorBody()?.string() ?: Messages.GENERIC_ERROR_MSG.getMessage()
+                    return@withContext Resource.Error("HTTP ${response.code()}: $errorMsg")
                 }
             } catch (e: HttpException) {
-                Resource.Error(message = ("Http exception: " + e.message))
+                return@withContext Resource.Error("HTTP ${e.code()}: ${e.message}")
             } catch (e: IOException) {
-                Resource.Error(message = e.message ?: "Please check your network connection")
+                return@withContext Resource.Error("Network Error: ${e.message ?: "Please check your connection"}")
             } catch (e: Exception) {
-                Resource.Error(message = Messages.NO_DATA_ERROR_MSG.getMessage())
+                return@withContext Resource.Error(Messages.NO_DATA_ERROR_MSG.getMessage())
             }
         }
     }
