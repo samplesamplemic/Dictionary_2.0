@@ -2,40 +2,40 @@ package com.example.vocabulary.handler
 
 import android.os.SystemClock
 import android.view.View
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.mockkStatic
+import io.mockk.unmockkStatic
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import org.mockito.MockedStatic
-import org.mockito.Mockito
-import org.mockito.Mockito.mock
 
 class SafeClickListenerTest {
 
     private lateinit var viewMock: View
     private var clickCount = 0
     private lateinit var safeClickListener: SafeClickListener
-    private lateinit var mockedStatic: MockedStatic<SystemClock>
 
     @Before
     fun setUp() {
-        viewMock = mock(View::class.java)
+        viewMock = mockk(relaxed = true)
         clickCount = 0
         safeClickListener = SafeClickListener(
             defaultInterval = 1000,
             onSafeClick = { clickCount++ }
         )
-        mockedStatic = Mockito.mockStatic(SystemClock::class.java)
+        mockkStatic(SystemClock::class)
     }
 
     @After
     fun tearDown() {
-        mockedStatic.close()
+        unmockkStatic(SystemClock::class)
     }
 
     @Test
     fun testSafeClickListener() {
         // Mock elapsedRealtime to return different values for each call
-        mockedStatic.`when`<Long> { SystemClock.elapsedRealtime() }.thenReturn(1000L, 1500L, 2500L)
+        every { SystemClock.elapsedRealtime() } returnsMany listOf(1000L, 1500L, 2500L)
 
         // Simulate clicks
         safeClickListener.onClick(viewMock) // First click
