@@ -1,6 +1,6 @@
 ## Dictionary
 
-A powerful dictionary application developed in Kotlin, utilizing a free external dictionary API to provide comprehensive definitions and meanings of words. 
+A dictionary application developed in Kotlin, utilizing a free external dictionary API to provide comprehensive definitions and meanings of words. 
 The app uses the Hilt library for dependency injection and features a web-scraper to retrieve images of searched words from Wikipedia. 
 However, the image retrieval functionality is currently excluded from the view due to its imperfect functionality.
 
