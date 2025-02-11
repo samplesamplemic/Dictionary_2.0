@@ -20,12 +20,13 @@ import java.util.Locale
 class PhoneticFragment : Fragment(), FragmentBase {
     private lateinit var binding: PhoneticFragmentBinding
     private val viewModel: ItemViewModel by activityViewModels()
+    private val phoneticAdapter = PhoneticAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.phonetic_fragment, container, false)
         lifecycleScope.launch {
             viewModel.selectedItem.observe(viewLifecycleOwner) { item ->
@@ -39,24 +40,26 @@ class PhoneticFragment : Fragment(), FragmentBase {
         return binding.root
     }
 
-    override fun handleResourceSuccess(word: Resource<Word>) {
-        if (word.data.isNullOrEmpty()) {
-            binding.wordSearched.text = word.message
+    override fun handleResourceSuccess(resource: Resource<Word>) {
+        val wordList = resource.data
+        if (wordList.isNullOrEmpty()) {
+            binding.wordSearched.text = resource.message ?: ""
             binding.pronounce.text = ""
+            updateViewVisibility(false)
         } else {
             updateViewVisibility(true)
-            val phoneticToFind = word.data[0].phonetics
-            val phoneticFound = PhoneticAdapter.phoneticAdapter(phoneticToFind)
-            val wordSearched = word.data[0]
-                .word.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() }
+            val wordItem = wordList[0]
+            val (phoneticText, phoneticAudio) = phoneticAdapter.getPhoneticText(wordItem.phonetics)
 
-            binding.wordSearched.text = wordSearched
-            binding.pronounce.text = phoneticFound
-            PhoneticAdapter.playPronounce(binding.iconPlay)
+            binding.wordSearched.text = wordItem.word.replaceFirstChar { it.titlecase(Locale.ROOT) }
+            binding.pronounce.text = phoneticText
+            phoneticAdapter.playPronounce(binding.iconPlay, phoneticAudio)
         }
     }
 
     override fun updateViewVisibility(isVisible: Boolean) {
         binding.iconPlay.visibility = if (isVisible) View.VISIBLE else View.GONE
+        binding.wordSearched.visibility = if (isVisible) View.VISIBLE else View.GONE
+        binding.pronounce.visibility = if (isVisible) View.VISIBLE else View.GONE
     }
 }

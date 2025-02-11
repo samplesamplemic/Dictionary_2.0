@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.vocabulary.databinding.DefinitionsFragmentBinding
 import com.example.vocabulary.model.dto.Word
 import com.example.vocabulary.model.resource.Resource
@@ -21,13 +20,12 @@ class DefinitionsFragment : Fragment(), FragmentBase {
     private val binding get() = _binding!!
     private val viewModel: ItemViewModel by activityViewModels()
     private lateinit var meaningAdapter: MeaningAdapter
-    private lateinit var recyclerView: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = DefinitionsFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }

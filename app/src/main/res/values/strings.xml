@@ -7,4 +7,5 @@
     <string name="imgDescription">image from word searched</string>
     <string name="bullet">• %1$s</string>
     <string name="searchBtnDescription">magnifier icon</string>
+    <string name="iconPlayBtn">play/pause icon</string>
 </resources>
