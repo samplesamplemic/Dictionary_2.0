@@ -14,11 +14,13 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object Module {
 
+    private const val BASE_URL = "https://api.dictionaryapi.dev/api/v2/entries/en/"
+
     @Provides
     @Singleton
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://api.dictionaryapi.dev/api/v2/entries/en/")
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

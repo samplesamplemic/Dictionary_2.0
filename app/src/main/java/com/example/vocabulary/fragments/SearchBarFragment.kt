@@ -20,7 +20,7 @@ class SearchBarFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.searchbar_fragment, container, false)
 
         binding.searchBtn.setSafeOnClickListener {
