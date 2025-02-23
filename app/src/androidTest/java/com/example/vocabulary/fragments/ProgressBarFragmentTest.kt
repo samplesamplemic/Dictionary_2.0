@@ -28,7 +28,7 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 @HiltAndroidTest
 @MediumTest
-@ExperimentalCoroutinesApi
+//@ExperimentalCoroutinesApi
 class ProgressBarFragmentTest {
 
     @get:Rule
@@ -46,6 +46,7 @@ class ProgressBarFragmentTest {
         every { viewModel.selectedItem } returns selectedItemLiveData
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun testProgressBarVisibility() {
         val scenario =
@@ -56,6 +57,9 @@ class ProgressBarFragmentTest {
         onView(withId(R.id.progressBar)).check(matches(isDisplayed()))
 
         selectedItemLiveData.postValue(Resource.Success(WordBuilder.defaultWord()))
+        onView(withId(R.id.progressBar)).check(matches(not(isDisplayed())))
+
+        selectedItemLiveData.postValue(Resource.Error("Error"))
         onView(withId(R.id.progressBar)).check(matches(not(isDisplayed())))
     }
 }
