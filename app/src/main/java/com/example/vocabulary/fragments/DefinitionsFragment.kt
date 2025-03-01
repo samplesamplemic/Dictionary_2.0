@@ -7,19 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.vocabulary.databinding.DefinitionsFragmentBinding
 import com.example.vocabulary.model.dto.Word
 import com.example.vocabulary.model.resource.Resource
 import com.example.vocabulary.viewModel.ItemViewModel
-import kotlinx.coroutines.launch
 
 class DefinitionsFragment : Fragment(), FragmentBase {
     private var _binding: DefinitionsFragmentBinding? = null
     private val binding get() = _binding!!
     private val viewModel: ItemViewModel by activityViewModels()
-    private lateinit var meaningAdapter: MeaningAdapter
+    private val meaningAdapter by lazy { MeaningAdapter(emptyList()) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,26 +31,25 @@ class DefinitionsFragment : Fragment(), FragmentBase {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
-        lifecycleScope.launch {
-            viewModel.selectedItem.observe(viewLifecycleOwner) { resource ->
-                when (resource) {
-                    is Resource.Error -> updateViewVisibility(false)
-                    is Resource.Loading -> updateViewVisibility(false)
-                    is Resource.Success -> handleResourceSuccess(resource)
-                }
+
+        viewModel.selectedItem.observe(viewLifecycleOwner) { resource ->
+            when (resource) {
+                is Resource.Error, is Resource.Loading -> updateViewVisibility(false)
+                is Resource.Success -> handleResourceSuccess(resource)
             }
         }
     }
 
     private fun setupRecyclerView() {
-        binding.recyclerViewMeaning.layoutManager = LinearLayoutManager(requireContext())
-        meaningAdapter = MeaningAdapter(emptyList())
-        binding.recyclerViewMeaning.adapter = meaningAdapter
+        binding.recyclerViewMeaning.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = meaningAdapter
+        }
     }
 
     override fun handleResourceSuccess(resource: Resource<Word>) {
         resource.data?.let { word ->
-            val meanings = word[0].meanings
+            val meanings = word[0].meanings ?: emptyList()
             updateViewVisibility(meanings.isNotEmpty())
             meaningAdapter.updateData(meanings)
         } ?: updateViewVisibility(false)
