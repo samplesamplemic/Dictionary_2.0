@@ -26,7 +26,7 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 @HiltAndroidTest
 @MediumTest
-class MeaningAdapterTest {
+class MeaningAdapterInstrumentedTest {
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
 

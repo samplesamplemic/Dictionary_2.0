@@ -13,10 +13,13 @@
         </DropdownSelection>
         <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="MeaningAdapterTest">
+      <SelectionState runConfigName="PhoneticAdapterTest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="onBindViewHolderShouldBind_Definition_correctly()">
+      <SelectionState runConfigName="PhoneticAdapterInstrumentedTest">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="MeaningAdapterInstrumentedTest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
