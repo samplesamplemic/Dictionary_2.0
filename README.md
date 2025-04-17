@@ -4,7 +4,7 @@ This dictionary application is built using Kotlin and integrates a free external
 It uses the Hilt library for dependency injection and is fully covered by unit and instrumented test.
 The app has one feature under development, a web-scraper designed to fetch images of searched words from Wikipedia. 
 
-<div><img alt="img" src="./app/src/main/res/drawable/dictionary_layout.png" height="300" width="150"/> </div>
+<div><img alt="img" src="./app/src/main/res/drawable/layout_dictionary_app.png" height="300" width="150"/> </div>
 
 ## Features
 

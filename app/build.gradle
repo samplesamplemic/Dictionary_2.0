@@ -3,21 +3,22 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.dagger.hilt.android'
+    id 'com.google.gms.google-services'
 }
 
 android {
-    namespace 'com.example.vocabulary'
+    namespace 'com.example.dictionary'
     compileSdk 35
 
     defaultConfig {
-        applicationId "com.example.vocabulary"
+        applicationId "com.example.dictionary"
         minSdk 24
         //noinspection OldTargetApi
         targetSdk 33
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "com.example.vocabulary.HiltTestRunner"
+        testInstrumentationRunner "com.example.dictionary.HiltTestRunner"
     }
 
     buildTypes {
@@ -87,4 +88,8 @@ dependencies {
     implementation "org.jsoup:jsoup:1.15.4"
     implementation 'com.squareup.picasso:picasso:2.8'
     implementation 'com.google.code.gson:gson:2.10.1'
+
+    // Firebase
+    implementation platform('com.google.firebase:firebase-bom:33.12.0')
+    implementation 'com.google.firebase:firebase-analytics'
 }

@@ -13,9 +13,6 @@
         </DropdownSelection>
         <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="PhoneticAdapterTest">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
       <SelectionState runConfigName="PhoneticAdapterInstrumentedTest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>

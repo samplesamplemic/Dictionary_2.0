@@ -4,12 +4,12 @@
     <data>
 
         <variable
-            name="pronounce"
-            type="com.example.vocabulary.model.dto.Phonetic" />
+            name="phonetic"
+            type="com.example.dictionary.model.dto.Phonetic" />
 
         <variable
-            name="wordSearched"
-            type="com.example.vocabulary.model.dto.WordItem" />
+            name="wordItem"
+            type="com.example.dictionary.model.dto.WordItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="1dp"
                 android:fontFamily="@font/josefin_sans_bold"
-                android:text="@{wordSearched.word}"
+                android:text="@{wordItem.word}"
                 android:textColor="@color/white"
                 android:textSize="55sp" />
 
@@ -51,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:fontFamily="@font/josefin_sans_italic"
-                    android:text="@{pronounce.text}"
+                    android:text="@{phonetic.text}"
                     android:textColor="@color/white"
                     android:textSize="25sp" />
 

@@ -13,5 +13,7 @@
 .externalNativeBuild
 .cxx
 local.properties
-/app/src/main/java/com/example/vocabulary/old
+/app/src/main/java/com/example/dictionary/old
 /app/build
+/app/google-services.json
+/app/release

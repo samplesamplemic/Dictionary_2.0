@@ -1,0 +1,39 @@
+package com.example.dictionary.module
+
+import com.example.dictionary.network.WordRetriever
+import com.example.dictionary.service.APIService
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
+
+@Module
+@InstallIn(SingletonComponent::class)
+object Module {
+
+    private const val BASE_URL = "https://api.dictionaryapi.dev/api/v2/entries/en/"
+
+    @Provides
+    @Singleton
+    fun provideRetrofit(): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideAPIService(retrofit: Retrofit): APIService {
+        return retrofit.create(APIService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideWordRetriever(apiService: APIService): WordRetriever {
+        return WordRetriever(apiService)
+    }
+}
